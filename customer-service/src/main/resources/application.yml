@@ -1,6 +1,20 @@
 server:
-  port: 8080
+  port: ${BASE_PORT:8080}
+  servlet:
+    context-path: /api/v1
 
 spring:
   application:
     name: customer-service
+  datasource:
+    url: jdbc:postgresql://${DB_ADDRESS:localhost}:${DB_PORT:5432}/${DB_DATABASE:customer}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
