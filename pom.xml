@@ -12,6 +12,7 @@
 
   <modules>
     <module>customer-service</module>
+    <module>fraud-service</module>
   </modules>
 
   <properties>
