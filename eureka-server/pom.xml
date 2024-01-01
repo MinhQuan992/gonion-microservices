@@ -7,10 +7,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>customer-service</artifactId>
+  <groupId>com.gonion.eurekaserver</groupId>
+  <artifactId>eureka-server</artifactId>
   <packaging>jar</packaging>
 
-  <name>customer-service</name>
+  <name>eureka-server</name>
   <url>https://maven.apache.org</url>
 
   <properties>
@@ -19,21 +20,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
     </dependency>
   </dependencies>
 </project>
