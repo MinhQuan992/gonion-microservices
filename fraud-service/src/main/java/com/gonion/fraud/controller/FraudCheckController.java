@@ -1,6 +1,6 @@
 package com.gonion.fraud.controller;
 
-import com.gonion.fraud.response.FraudCheckResponse;
+import com.gonion.clients.fraud.FraudCheckResponse;
 import com.gonion.fraud.service.FraudCheckService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
