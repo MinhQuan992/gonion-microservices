@@ -1,4 +1,4 @@
-package com.gonion.fraud.response;
+package com.gonion.clients.fraud;
 
 public record FraudCheckResponse(Boolean isFraudster) {
 }

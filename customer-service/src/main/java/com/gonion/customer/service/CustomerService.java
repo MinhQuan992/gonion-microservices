@@ -1,18 +1,17 @@
 package com.gonion.customer.service;
 
+import com.gonion.clients.fraud.FraudClient;
 import com.gonion.customer.entity.Customer;
 import com.gonion.customer.repository.CustomerRepository;
 import com.gonion.customer.request.CustomerRegistrationRequest;
-import com.gonion.customer.response.FraudCheckResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
   private final CustomerRepository customerRepository;
-  private final RestTemplate restTemplate;
+  private final FraudClient fraudClient;
 
   public void registerCustomer(CustomerRegistrationRequest request) {
     Customer customer = Customer.builder()
@@ -22,11 +21,7 @@ public class CustomerService {
             .build();
     customerRepository.saveAndFlush(customer);
 
-    var fraudCheckResponse = restTemplate.getForObject(
-            "http://FRAUD-SERVICE/api/v1/fraud-check/{customerId}",
-            FraudCheckResponse.class,
-            customer.getId()
-    );
+    var fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
     assert fraudCheckResponse != null;
     if (fraudCheckResponse.isFraudster()) {
