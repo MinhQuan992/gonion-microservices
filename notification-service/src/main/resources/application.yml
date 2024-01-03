@@ -1,0 +1,8 @@
+server:
+  port: ${BASE_PORT:8082}
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: notification-service
