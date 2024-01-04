@@ -1,6 +1,8 @@
 package com.gonion.customer.service;
 
 import com.gonion.clients.fraud.FraudClient;
+import com.gonion.clients.notification.NotificationClient;
+import com.gonion.clients.notification.NotificationRequest;
 import com.gonion.customer.entity.Customer;
 import com.gonion.customer.repository.CustomerRepository;
 import com.gonion.customer.request.CustomerRegistrationRequest;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
   private final CustomerRepository customerRepository;
   private final FraudClient fraudClient;
+  private final NotificationClient notificationClient;
 
   public void registerCustomer(CustomerRegistrationRequest request) {
     Customer customer = Customer.builder()
@@ -27,5 +30,15 @@ public class CustomerService {
     if (fraudCheckResponse.isFraudster()) {
       throw new IllegalStateException("Fraudster");
     }
+
+    // TODO: make it async. i.e add to queue
+    notificationClient.sendNotification(
+            new NotificationRequest(
+                    customer.getId(),
+                    customer.getEmail(),
+                    String.format("Hi %s, welcome to Gonion...",
+                            customer.getFirstName())
+            )
+    );
   }
 }
