@@ -2,7 +2,7 @@ package com.gonion.notification.service;
 
 import com.gonion.notification.entity.Notification;
 import com.gonion.notification.repository.NotificationRepository;
-import com.gonion.notification.request.NotificationRequest;
+import com.gonion.clients.notification.NotificationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

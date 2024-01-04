@@ -1,4 +1,4 @@
-package com.gonion.notification.request;
+package com.gonion.clients.notification;
 
 public record NotificationRequest(
         Integer toCustomerId,

@@ -1,6 +1,6 @@
 package com.gonion.notification.controller;
 
-import com.gonion.notification.request.NotificationRequest;
+import com.gonion.clients.notification.NotificationRequest;
 import com.gonion.notification.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
