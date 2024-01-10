@@ -18,6 +18,8 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+  zipkin:
+    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
 
 eureka:
   client:
