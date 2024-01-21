@@ -34,6 +34,8 @@ services:
     image: openzipkin/zipkin
     ports:
       - "9411:9411"
+    networks:
+      - spring
 
   rabbitmq:
     container_name: rabbitmq
@@ -41,9 +43,93 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - spring
+
+  eureka-server:
+    container_name: eureka-server
+    image: minhquan992/eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring
+    environment:
+      ZIPKIN_HOST: zipkin
+    depends_on:
+      - zipkin
+
+  api-gateway:
+    container_name: api-gateway
+    image: minhquan992/api-gateway
+    ports:
+      - "8083:8083"
+    networks:
+      - spring
+    environment:
+      ZIPKIN_HOST: zipkin
+      EUREKA_HOST: eureka-server
+    depends_on:
+      - zipkin
+      - eureka-server
+
+  customer-service:
+    image: minhquan992/customer-service
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+      - spring
+    environment:
+      DB_ADDRESS: postgres
+      ZIPKIN_HOST: zipkin
+      RABBITMQ_HOST: rabbitmq
+      EUREKA_HOST: eureka-server
+    depends_on:
+      - postgres
+      - rabbitmq
+      - zipkin
+      - eureka-server
+
+  fraud-service:
+    image: minhquan992/fraud-service
+    ports:
+      - "8081:8081"
+    networks:
+      - postgres
+      - spring
+    environment:
+      DB_ADDRESS: postgres
+      ZIPKIN_HOST: zipkin
+      RABBITMQ_HOST: rabbitmq
+      EUREKA_HOST: eureka-server
+    depends_on:
+      - postgres
+      - rabbitmq
+      - zipkin
+      - eureka-server
+
+  notification-service:
+    image: minhquan992/notification-service
+    ports:
+      - "8082:8082"
+    networks:
+      - postgres
+      - spring
+    environment:
+      DB_ADDRESS: postgres
+      ZIPKIN_HOST: zipkin
+      RABBITMQ_HOST: rabbitmq
+      EUREKA_HOST: eureka-server
+    depends_on:
+      - postgres
+      - rabbitmq
+      - zipkin
+      - eureka-server
 
 networks:
   postgres:
+    driver: bridge
+  spring:
     driver: bridge
 
 volumes:
