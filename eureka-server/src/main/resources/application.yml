@@ -5,7 +5,7 @@ spring:
   application:
     name: eureka-server
   zipkin:
-    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
+    base-url: http://${ZIPKIN_HOST:localhost}:${ZIPKIN_PORT:9411}
 
 eureka:
   client:
